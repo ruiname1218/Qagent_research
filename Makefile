@@ -29,8 +29,7 @@ replay: replay-main replay-no-sharing
 
 fresh-main:
 	@echo "Requires an authenticated Codex CLI with access to gpt-6-astra."
-	$(PYTHON) scripts/restore_initial.py --run fresh_initial
-	$(PYTHON) -m qagent oneshot --run fresh_oneshot --workers 3
+	$(PYTHON) -m qagent oneshot --run fresh_initial --workers 3
 	$(PYTHON) -m qagent feedback --run fresh_feedback --initial-run fresh_initial --attempts 6 --workers 3
 	$(PYTHON) -m qagent restart --run fresh_restart --initial-run fresh_initial --attempts 6 --workers 6
 

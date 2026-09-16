@@ -44,7 +44,9 @@ Authenticate the Codex CLI and ensure access to `gpt-6-astra`, then run:
 make fresh
 ```
 
-It creates a new common initial set and runs all six table conditions. Record the Codex CLI version and release timestamp with a new replication.
+It generates one new common initial set, reports that set as the one-shot run,
+then runs the five repair trajectories from it. Record the Codex CLI version and
+release timestamp with a new replication.
 
 ## Trace audit
 
