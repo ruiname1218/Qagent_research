@@ -1,0 +1,153 @@
+{
+  "purpose": "Post-hoc mechanism audit of the observed qiskit_26 gain. Never passed to models.",
+  "case": "qiskit_26",
+  "first_prompt_equal": true,
+  "first_schema_equal": true,
+  "first_prompt_sha256": {
+    "baseline": "2a9d842a7615a3a412d27d7be99a2049f228ec99ee8a2da6505f9b557e87ed61",
+    "restart": "2a9d842a7615a3a412d27d7be99a2049f228ec99ee8a2da6505f9b557e87ed61"
+  },
+  "all_family_restart_events": [
+    {
+      "framework": "qiskit",
+      "attempt": 2,
+      "restart": {
+        "triggered": false,
+        "reason": "fewer than two prior attempts"
+      },
+      "accepted": false
+    },
+    {
+      "framework": "qiskit",
+      "attempt": 3,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 1.0899999999999999,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "qiskit",
+      "attempt": 4,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 1.39,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "qiskit",
+      "attempt": 5,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.47200000000000003,
+        "threshold": 0.02
+      },
+      "accepted": true
+    },
+    {
+      "framework": "cirq",
+      "attempt": 2,
+      "restart": {
+        "triggered": false,
+        "reason": "fewer than two prior attempts"
+      },
+      "accepted": false
+    },
+    {
+      "framework": "cirq",
+      "attempt": 3,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.8799999999999999,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "cirq",
+      "attempt": 4,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.7300000000000001,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "cirq",
+      "attempt": 5,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.7360000000000001,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "cirq",
+      "attempt": 6,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.9120000000000001,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "pennylane",
+      "attempt": 2,
+      "restart": {
+        "triggered": false,
+        "reason": "fewer than two prior attempts"
+      },
+      "accepted": false
+    },
+    {
+      "framework": "pennylane",
+      "attempt": 3,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.796,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "pennylane",
+      "attempt": 4,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.6219999999999999,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "pennylane",
+      "attempt": 5,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.538,
+        "threshold": 0.02
+      },
+      "accepted": false
+    },
+    {
+      "framework": "pennylane",
+      "attempt": 6,
+      "restart": {
+        "triggered": false,
+        "l1_distance": 0.5279999999999999,
+        "threshold": 0.02
+      },
+      "accepted": false
+    }
+  ],
+  "any_restart_triggered_in_family": false,
+  "accepted_code": "from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit\n\n\ndef GHZ3_SWAPTEST() -> QuantumCircuit:\n    \"\"\"Perform three independent pairwise SWAP tests on fresh state copies.\"\"\"\n    ancilla = QuantumRegister(3, \"ancilla\")\n    ghz_registers = [QuantumRegister(3, f\"ghz_{i}\") for i in range(3)]\n    plus_registers = [QuantumRegister(3, f\"plus_{i}\") for i in range(3)]\n    result = ClassicalRegister(3, \"result\")\n    circuit = QuantumCircuit(ancilla, *ghz_registers, *plus_registers, result)\n\n    for i in range(3):\n        ghz = ghz_registers[i]\n        plus = plus_registers[i]\n        circuit.h(ghz[0])\n        circuit.cx(ghz[0], ghz[1])\n        circuit.cx(ghz[0], ghz[2])\n        circuit.h(plus)\n\n        circuit.h(ancilla[i])\n        circuit.cswap(ancilla[i], ghz[i], plus[i])\n        circuit.h(ancilla[i])\n\n    circuit.measure(ancilla, result)\n    return circuit\n",
+  "interpretation": "Restart never ran in this task family. The observed gain cannot be attributed to the restart intervention; ordinary generation variability and sampling/interpretation differences remain.",
+  "specification_note": "Accepted circuit uses 21 qubits and independent fresh GHZ3/plus registers for each one-qubit pairwise SWAP test. This changes data sharing and is not a verification of whole-state overlap."
+}

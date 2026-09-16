@@ -1,0 +1,60 @@
+{
+  "offline_audit": {
+    "cases": 378,
+    "record_entries": 697,
+    "distinct_calls": 445,
+    "passed": true
+  },
+  "prompt_reconstruction": {
+    "initial": 126,
+    "feedback_repairs": 182,
+    "restart_repairs": 137,
+    "privacy_redacted_inputs_match": true
+  },
+  "unit_tests": {
+    "passed": 6
+  },
+  "information_ablations": {
+    "trajectories": 8,
+    "cases_per_trajectory": 126,
+    "paired_outcomes": 1008,
+    "code_visible": [107, 110],
+    "code_masked": [107, 107],
+    "peer_outcomes_retained": [106, 107],
+    "all_peer_information_removed": [103, 103],
+    "actual_input_audited": true,
+    "predeclared_consistency_criteria_met": false
+  },
+  "comparison_table_evidence": {
+    "trajectories": 6,
+    "cases_per_trajectory": 126,
+    "total_case_outcomes": 756,
+    "total_record_entries": 1575,
+    "distinct_model_calls_with_common_initial_reused": 945,
+    "complete_code_and_evaluation_history_for_every_trajectory": true,
+    "no_peer_restart_scores": [103, 103],
+    "no_peer_no_restart_score": 102,
+    "no_peer_restart_repairs": [167, 166],
+    "no_peer_no_restart_repairs": 167,
+    "no_peer_restart_triggers": [23, 14],
+    "offline_audits_passed": true,
+    "sanitized_raw_trace_bundle_records": 1213,
+    "sanitized_raw_trace_bundle_sha256_verified": true,
+    "unredacted_raw_codex_logs_bundled": false
+  },
+  "saved_circuit_smoke_replay": {
+    "condition": "restart",
+    "cases": 3,
+    "passed": 3,
+    "changed": [],
+    "infrastructure_errors": []
+  },
+  "new_evidence_smoke_replay": {
+    "case": "cirq_03",
+    "conditions": ["no_peer_restart_r1", "no_peer_restart_r2", "no_peer_no_restart"],
+    "archived_passed": [true, true, true],
+    "replayed_passed": [true, true, true],
+    "infrastructure_errors": []
+  },
+  "scope": "Release packaging validation. No fresh model calls; saved circuit replay includes the original restart smoke test and one repaired accepted case from each newly completed evidence trajectory."
+}

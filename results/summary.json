@@ -1,0 +1,38 @@
+{
+  "oneshot": {
+    "cases": 126,
+    "passed": 74,
+    "passed_by_5_submissions": 74,
+    "model_calls_including_common_initial": 126,
+    "output_tokens_including_common_initial": 35773,
+    "by_framework": {
+      "qiskit": 27,
+      "cirq": 24,
+      "pennylane": 23
+    }
+  },
+  "feedback": {
+    "cases": 126,
+    "passed": 99,
+    "passed_by_5_submissions": 98,
+    "model_calls_including_common_initial": 308,
+    "output_tokens_including_common_initial": 107287,
+    "by_framework": {
+      "qiskit": 34,
+      "cirq": 34,
+      "pennylane": 31
+    }
+  },
+  "restart": {
+    "cases": 126,
+    "passed": 108,
+    "passed_by_5_submissions": 108,
+    "model_calls_including_common_initial": 263,
+    "output_tokens_including_common_initial": 126467,
+    "by_framework": {
+      "qiskit": 37,
+      "cirq": 36,
+      "pennylane": 35
+    }
+  }
+}

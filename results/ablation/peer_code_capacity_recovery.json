@@ -1,0 +1,23 @@
+{
+  "recorded_utc": "2026-09-15T15:28:41.298141+00:00",
+  "arm": "masked_r1",
+  "case": "pennylane_41",
+  "attempt": 6,
+  "reason": "Selected model is at capacity. Please try a different model.",
+  "failed_raw_folder": "runs/peer_code_masked_r1/pennylane_41/attempt_6/failed_model_calls/capacity_1",
+  "raw_sha256": {
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "events.jsonl": "9e6aa7d2f990c0a5be5b212585974c9b8e03bf3ba538ee71f07142711adc3fad",
+    "prompt.txt": "a5b025ebf69f6f48c2bc5515bf01f36b06314905f25cd4ff1795d4bbf7528c3f",
+    "schema.json": "d8803bc621702a7accebaabeef701d838133284a1559f4bdb40e6c1c46030e47"
+  },
+  "source_error": {
+    "error": "RuntimeError('Invalid model run: exit=1, completed=False, tool_events=[]')"
+  },
+  "completed_response": false,
+  "candidate_returned": false,
+  "usage_reported": false,
+  "failed_backend_invocations": 1,
+  "action": "Archive failed raw call unchanged; reissue the identical prompt/model/schema for the still-empty final candidate slot. No candidate is discarded and no additional official evaluation is granted.",
+  "protocol_deviation": "Post-registration operational recovery beyond the predeclared completed-transport-notice rule. Failed backend invocation is reported separately from completed repair generations. No runtime/price comparison."
+}

@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite the associated manuscript and this software release."
+title: "QuanBench Repair"
+authors:
+  - family-names: Suzuki
+    given-names: Rui
+    affiliation: Keio University; LEONA QUANTUM Inc.
+license: MIT
+version: 0.1.0
+date-released: 2026-09-16
+repository-code: "https://github.com/ruiname1218/Qagent_research"

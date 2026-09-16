@@ -1,0 +1,44 @@
+{
+  "purpose": "Post-hoc examination of the two accepted VQE gain cases; never fed to models.",
+  "interpretation": "Both accepted implementations interpret Z2 as Z squared = identity. An optimizer is called, but its objective is constant. The finite perturbation check below illustrates the consequence, not a complete VQE correctness proof.",
+  "checks": [
+    {
+      "key": "cirq_41",
+      "arm": "shared_r2",
+      "officially_accepted": true,
+      "code_sha256": "be7dc4e89f3d115be3f01b221777065fa20cf25cadc91d89947f96f36d4fc770",
+      "probe": "\nimport numpy as np\noriginal_minimize=minimize\nchecks=[]\ndef tracked_minimize(fun,x0,*args,**kwargs):\n    initial=np.asarray(x0,dtype=float)\n    shifted=initial.copy(); shifted[0]+=0.37\n    before=[float(fun(initial)),float(fun(shifted))]\n    result=original_minimize(fun,x0,*args,**kwargs)\n    checks.append({'energy_at_initial_and_shifted':before,'parameter_change_norm':float(np.linalg.norm(np.asarray(result.x)-initial)),'iterations':int(result.nit)})\n    return result\nminimize=tracked_minimize\noutput=VQE_Z2([0.1,0.2,0.3,0.4])\ndiagnostic_result=checks\n",
+      "ran": true,
+      "error": null,
+      "observations": [
+        {
+          "energy_at_initial_and_shifted": [
+            1.0,
+            1.0000000000000002
+          ],
+          "parameter_change_norm": 0.0,
+          "iterations": 0
+        }
+      ]
+    },
+    {
+      "key": "pennylane_41",
+      "arm": "shared_r2",
+      "officially_accepted": true,
+      "code_sha256": "fbb5d24b0b70d68278b79a632455dc6cee5f152ca37f9dcd5596e1ee5df9ab40",
+      "probe": "\nimport numpy as np\noriginal_minimize=minimize\nchecks=[]\ndef tracked_minimize(fun,x0,*args,**kwargs):\n    initial=np.asarray(x0,dtype=float)\n    shifted=initial.copy(); shifted[0]+=0.37\n    before=[float(fun(initial)),float(fun(shifted))]\n    result=original_minimize(fun,x0,*args,**kwargs)\n    checks.append({'energy_at_initial_and_shifted':before,'parameter_change_norm':float(np.linalg.norm(np.asarray(result.x)-initial)),'iterations':int(result.nit)})\n    return result\nminimize=tracked_minimize\noutput=VQE_Z2([0.1,0.2,0.3,0.4])\ndiagnostic_result=checks\n",
+      "ran": true,
+      "error": null,
+      "observations": [
+        {
+          "energy_at_initial_and_shifted": [
+            1.0,
+            1.0000000000000002
+          ],
+          "parameter_change_norm": 0.0,
+          "iterations": 0
+        }
+      ]
+    }
+  ]
+}

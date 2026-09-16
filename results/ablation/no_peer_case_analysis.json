@@ -1,0 +1,263 @@
+{
+  "purpose": "Post-hoc trace inspection of already-completed illustrative cases; never fed back to agents. Not an ablation of individual output fields.",
+  "examples": [
+    {
+      "replicate": 1,
+      "key": "cirq_04",
+      "conditions": {
+        "outcomes": {
+          "passed": true,
+          "attempts": 4,
+          "initial_output_size": 32,
+          "final_output_size": 32,
+          "final_plan": {
+            "diagnosis": "Previous failures were distribution mismatches, not runtime errors. The accepted peer's code is withheld, so its exact gates cannot be reconstructed. Its output supports revisiting logical-bit ordering with the previously tested RZZ(2*gamma) convention.",
+            "contract": "Accept a networkx.Graph and two length-5 parameter lists. Prepare |+> on each node, mapped in sorted node order. Apply five layers of exp(-i*gamma*weight*ZZ) followed by RX(2*beta). Measure all qubits in reverse logical order under 'result', matching Qiskit's high-to-low numeric indexing. Return cirq.Circuit. Plausible readouts include insertion order and logical register order; select reversed logical register order.",
+            "hypothesis": "H4: The RZZ(2*gamma) attempt's mismatch arose from node/readout ordering. Preserve its unitary convention while assigning nodes to sorted logical indices and measuring highest index first. This permutes outcome probabilities without changing the graph-state dynamics, predicting suppressed outcomes at indices 3, 5, 6, 7 and their complements, consistent with the accepted peer. One candidate; external evaluation pending."
+          },
+          "peer_evidence": [
+            {
+              "framework": "qiskit",
+              "accepted": true,
+              "output_size": 32
+            },
+            {
+              "framework": "pennylane",
+              "accepted": false,
+              "output_size": 32
+            }
+          ],
+          "peer_history_rows": 7
+        },
+        "none": {
+          "passed": false,
+          "attempts": 6,
+          "initial_output_size": 32,
+          "final_output_size": 32,
+          "final_plan": {
+            "diagnosis": "H1–H5 ran but failed distribution checks; no accepted peer is available. The standard MaxCut Hamiltonian with sorted-node readout remains untested: H1 used graph insertion order.",
+            "contract": "G is a networkx.Graph, defaulting to the specified graph. Prepare |+> on one qubit per sorted node. Apply five layers of exp(-i gamma[k] C), C=sum_edges weight*(I-ZZ)/2, followed by exp(-i beta[k] sum X). Cost conventions and node ordering were ambiguous; select the cut Hamiltonian and sorted order. Measure all qubits with key='result', first sorted node most significant. Omitted parameters default to five zeros.",
+            "hypothesis": "H6: Relative to H4, change only the cost angle from gamma*weight to -gamma*weight. This implements the MaxCut objective Hamiltonian up to global phase and changes interference while preserving RX(2*beta), preparation and readout. H1 tested this unitary with a different node order. One candidate is supplied; evaluation is pending."
+          },
+          "peer_evidence": [],
+          "peer_history_rows": 0
+        }
+      }
+    },
+    {
+      "replicate": 1,
+      "key": "pennylane_10",
+      "conditions": {
+        "outcomes": {
+          "passed": true,
+          "attempts": 2,
+          "initial_output_size": 64,
+          "final_output_size": 4,
+          "final_plan": {
+            "diagnosis": "The previous circuit ran successfully but sampled all six wires, producing 64 outcomes. The accepted peer reports four outcomes, consistent with measuring only the two system qubits.",
+            "contract": "No inputs. Prepare b on system wires [3, 4]; use three clock wires [0, 1, 2] and ancilla 5. Apply phase estimation for exp(iAt), reciprocal-eigenvalue ancilla rotations, and inverse phase estimation. Return 1000 samples of the system register in [3, 4] order, indexed as 00, 01, 10, 11. Ancilla postselection is omitted.",
+            "hypothesis": "H1: The failure concerns the measured subset. Change only readout from all wires to the system wires, preserving preparation and every unitary operation. Predicted effect: marginalize the ancilla and clock outcomes into four system probabilities consistent with the accepted peer. Its withheld code prevents verification of its exact gate sequence. This candidate has not been evaluated here."
+          },
+          "peer_evidence": [
+            {
+              "framework": "qiskit",
+              "accepted": false,
+              "output_size": 2
+            },
+            {
+              "framework": "cirq",
+              "accepted": true,
+              "output_size": 4
+            }
+          ],
+          "peer_history_rows": 4
+        },
+        "none": {
+          "passed": false,
+          "attempts": 6,
+          "initial_output_size": 64,
+          "final_output_size": 0,
+          "final_plan": {
+            "diagnosis": "All five attempts executed but failed distribution checks. No accepted peer is available. They all returned both ancilla branches; conditioning on successful inversion remains untested.",
+            "contract": "No arguments. System wires [0,1], clock wires [2,3,4], ancilla wire 5. Prepare the specified b, perform phase estimation of exp(iAt) with t=pi/4, apply exact reciprocal rotations with C=1, and uncompute. Readout could include both branches or condition on success; select success postselection. Return qml.sample() with 1000 rows, columns ordered [0,1,2,3,4,5].",
+            "hypothesis": "H1–H5 were rejected. H6 changes only the readout of H5 by postselecting ancilla=1. This tests whether the expected output represents the normalized HHL solution. Predicted clock bits are 000, ancilla is 1, and system probabilities are [324,49,1,36]/410. Evaluation remains pending; no tools were called."
+          },
+          "peer_evidence": [],
+          "peer_history_rows": 0
+        }
+      }
+    },
+    {
+      "replicate": 1,
+      "key": "pennylane_15",
+      "conditions": {
+        "outcomes": {
+          "passed": true,
+          "attempts": 2,
+          "initial_output_size": 4,
+          "final_output_size": 2,
+          "final_plan": {
+            "diagnosis": "The previous circuit ran but sampled both qubits, producing four outcomes. Accepted peers report two outcomes consistent with measuring only the ancilla.",
+            "contract": "No inputs; two qubits and 1000 shots. Prepare target wire 1 in |+>. Apply H on ancilla wire 0, controlled-H from wire 0 to wire 1, then H on wire 0. Sample only wire 0; outcomes are indexed 0, 1. Peer code is withheld, so its exact gate sequence cannot be verified.",
+            "hypothesis": "Change only the measured subset from both wires to ancilla wire 0. This explains the four-outcome failure and predicts probabilities [(1+1/sqrt(2))/2, (1-1/sqrt(2))/2], consistent with accepted peer observations. This candidate has not been evaluated here."
+          },
+          "peer_evidence": [
+            {
+              "framework": "qiskit",
+              "accepted": true,
+              "output_size": 2
+            },
+            {
+              "framework": "cirq",
+              "accepted": true,
+              "output_size": 2
+            }
+          ],
+          "peer_history_rows": 2
+        },
+        "none": {
+          "passed": true,
+          "attempts": 6,
+          "initial_output_size": 4,
+          "final_output_size": 2,
+          "final_plan": {
+            "diagnosis": "Previous circuits ran successfully but failed semantic comparison. All returned both qubits; ancilla-only measurement remains untested. H5 also incorrectly predicted uniform joint probabilities: its circuit produces [0.5, 0, 0, 0.5].",
+            "contract": "No inputs; two qubits; 1000 shots. Prepare target wire 1 in |+>. Interpret h as U=H. Apply H, controlled-H, H using ancilla wire 0. Readout could include both wires or only the ancilla; select the standard ancilla-only computational-basis samples, shape (1000, 1).",
+            "hypothesis": "H6: Relative to H1, change only the measured subset to the ancilla. This explains the mismatch if canonical output contains only the Hadamard-test result. Predicted probabilities for ancilla outcomes 0 and 1 are approximately [0.853553, 0.146447]. Evaluation pending; no execution performed."
+          },
+          "peer_evidence": [],
+          "peer_history_rows": 0
+        }
+      }
+    },
+    {
+      "replicate": 2,
+      "key": "cirq_04",
+      "conditions": {
+        "outcomes": {
+          "passed": true,
+          "attempts": 4,
+          "initial_output_size": 32,
+          "final_output_size": 32,
+          "final_plan": {
+            "diagnosis": "Earlier candidates ran but failed distribution checks. The accepted peer's code is withheld, so its exact gates cannot be reconstructed. Its increased all-equal probabilities require a change beyond bit ordering.",
+            "contract": "Accept a NetworkX graph and five beta/gamma values. Prepare |+> on one qubit per node; apply five cost-then-mixer layers. Select cost exp(-i gamma sum(weight*ZZ)) and RX(2*beta). Measure all qubits in descending logical-node order to preserve Qiskit numeric indexing, using key='result'. Return cirq.Circuit.",
+            "hypothesis": "H4: Test RZZ(2*gamma*weight), replacing the rejected RZZ(gamma*weight) normalization. This changes interference and can increase all-equal probabilities. Independently, reverse measurement order for Qiskit-compatible indexing. H1–H3 failed; this candidate awaits evaluation, and no evaluation was executed here."
+          },
+          "peer_evidence": [
+            {
+              "framework": "qiskit",
+              "accepted": true,
+              "output_size": 32
+            },
+            {
+              "framework": "pennylane",
+              "accepted": false,
+              "output_size": 32
+            }
+          ],
+          "peer_history_rows": 7
+        },
+        "none": {
+          "passed": false,
+          "attempts": 6,
+          "initial_output_size": 32,
+          "final_output_size": 32,
+          "final_plan": {
+            "diagnosis": "H1–H5 executed successfully but failed comparison. No accepted peer is available. Cirq's native ZZ exponent convention remains untested.",
+            "contract": "Accept a networkx.Graph and two length-5 parameter sequences. Prepare |+> on one qubit per sorted node. Apply five layers of ZZPowGate(exponent=gamma*weight), then RX(2*beta). ZZ parameters may represent radians or half-turn exponents; select half-turn exponents. Measure all qubits in sorted-node order with key='result', first bit most significant. Return cirq.Circuit.",
+            "hypothesis": "H6: Relative to H3, change only the cost parameter convention from RZZ(gamma*weight) to RZZ(pi*gamma*weight), up to global phase. This tests native Cirq ZZ powers and predicts changed interference probabilities without changing preparation, mixer, or readout. H1–H5 are rejected; H6 awaits evaluation."
+          },
+          "peer_evidence": [],
+          "peer_history_rows": 0
+        }
+      }
+    },
+    {
+      "replicate": 2,
+      "key": "pennylane_10",
+      "conditions": {
+        "outcomes": {
+          "passed": true,
+          "attempts": 2,
+          "initial_output_size": 64,
+          "final_output_size": 4,
+          "final_plan": {
+            "diagnosis": "The previous circuit ran successfully but sampled all six wires, producing 64 outcomes. The accepted peer reports four outcomes consistent with measuring only the two system qubits.",
+            "contract": "No inputs. Prepare b on system wires [3,4], with three clock wires [0,1,2] and ancilla wire 5 initialized to zero. Apply phase estimation for exp(i*A*pi/4), reciprocal eigenvalue rotations, and inverse phase estimation. Return 1000 samples of system wires [3,4], ordered as binary outcomes 00,01,10,11. Full-register sampling and ancilla postselection are alternative readouts; the accepted evidence supports the unconditional system readout. The peer source is withheld, so its exact gate sequence cannot be verified.",
+            "hypothesis": "H1: The rejected output used the wrong measured register. Change only readout to the two system wires, preserving preparation and all quantum operations. This predicts four probabilities approximately [0.375,0.499919,0.000081,0.125], consistent with the accepted peer's sampled output."
+          },
+          "peer_evidence": [
+            {
+              "framework": "qiskit",
+              "accepted": false,
+              "output_size": 2
+            },
+            {
+              "framework": "cirq",
+              "accepted": true,
+              "output_size": 4
+            }
+          ],
+          "peer_history_rows": 4
+        },
+        "none": {
+          "passed": false,
+          "attempts": 6,
+          "initial_output_size": 64,
+          "final_output_size": 4,
+          "final_plan": {
+            "diagnosis": "The latest candidate runs successfully but fails the distribution check. No accepted peer is available. All evaluated readouts included auxiliary registers; the returned measurement subset remains unresolved.",
+            "contract": "No arguments. Prepare b on system wires [4,5], with three MSB-first clock wires [1,2,3] and ancilla 0. Estimate exp(i*A*pi/4), apply reciprocal rotations with C=1/2, uncompute estimation, and postselect ancilla=1. Plausible readouts include all logical wires or only the solution register; select the latter. Return 1000 two-column computational-basis samples ordered [system MSB, system LSB].",
+            "hypothesis": "Ledger: unconditional six-wire candidates with C=1 and C=1/2 were rejected; deferred measurement fixed the postselection runtime error; conditioned six-wire output was also rejected. This candidate changes only the measured subset to the solution register. It tests whether auxiliary bits caused the canonical indexing mismatch, predicting probabilities [324,49,1,36]/410 at indices 0,1,2,3. Evaluation is pending; no tools were called."
+          },
+          "peer_evidence": [],
+          "peer_history_rows": 0
+        }
+      }
+    },
+    {
+      "replicate": 2,
+      "key": "pennylane_15",
+      "conditions": {
+        "outcomes": {
+          "passed": true,
+          "attempts": 2,
+          "initial_output_size": 4,
+          "final_output_size": 2,
+          "final_plan": {
+            "diagnosis": "The previous circuit ran but sampled both wires, producing four outcomes. Accepted peer outputs have two outcomes, consistent with ancilla-only measurement.",
+            "contract": "No inputs. Two qubits: ancilla wire 0 and target wire 1. Prepare target |+>, apply H to ancilla, controlled-H to target, then H to ancilla. Return 1000 computational-basis samples of wire 0 only, with outcomes ordered 0, 1. Peer code is withheld; its exact gate sequence cannot be inspected.",
+            "hypothesis": "H1: Change only the measured subset from both wires to ancilla wire 0. This explains the rejected four-outcome output and predicts probabilities [(1+1/sqrt(2))/2, (1-1/sqrt(2))/2], consistent with accepted peer observations. No new evaluation performed."
+          },
+          "peer_evidence": [
+            {
+              "framework": "qiskit",
+              "accepted": true,
+              "output_size": 2
+            },
+            {
+              "framework": "cirq",
+              "accepted": true,
+              "output_size": 2
+            }
+          ],
+          "peer_history_rows": 2
+        },
+        "none": {
+          "passed": false,
+          "attempts": 6,
+          "initial_output_size": 4,
+          "final_output_size": 4,
+          "final_plan": {
+            "diagnosis": "All prior candidates ran but failed validation; no accepted peer is available. The previous Z hypothesis incorrectly predicted uniform probabilities: its circuit produces correlated outcomes 00 and 11.",
+            "contract": "No inputs; two qubits; 1000 shots. The tested unitary is unspecified. H, X, Y and Z are plausible; select the untested Y convention. Prepare target wire 1 in |+>, use wire 0 as the real-test ancilla, and sample both wires in order [0, 1], indexed 00, 01, 10, 11.",
+            "hypothesis": "H6: The mismatch may concern the unspecified unitary. Change only controlled-Z in attempt 5 to controlled-Y. Since <+|Y|+> = 0 and Y introduces relative imaginary amplitudes, predict joint probabilities [0.25, 0.25, 0.25, 0.25]. This candidate has not been evaluated."
+          },
+          "peer_evidence": [],
+          "peer_history_rows": 0
+        }
+      }
+    }
+  ]
+}

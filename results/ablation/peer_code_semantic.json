@@ -1,0 +1,205 @@
+{
+  "purpose": "Post-hoc inspection of QPE controlled gate and GHZ comparison circuit structure; no model calls, no feedback or selection.",
+  "limitations": "QPE probes one controlled base gate up to global phase; global phase still matters under control. GHZ inspects structure, not circuit equivalence. No exhaustive semantic correctness claim.",
+  "expected": 8,
+  "completed": 8,
+  "checks": [
+    {
+      "arm": "shared_r1",
+      "key": "qiskit_25",
+      "officially_accepted": true,
+      "artifact_probe_sha256": "104e3f91fd28dfd48c3e0ad6e3fc5da6b621aef010f3e43dd81492289ae5ab6c",
+      "probe": "\nimport numpy as np\nfrom qiskit.quantum_info import Operator\nqc=qpe_grover00_gate(3)\ncontrolled=next(x.operation for x in qc.data if hasattr(x.operation,'base_gate') and x.operation.num_qubits==3)\nactual=Operator(controlled.base_gate).data\ns=np.ones(4)/2\nD=2*np.outer(s,s)-np.eye(4)\nO=np.diag([-1,1,1,1])\nG=D@O\ndiagnostic_result={'controlled_gate':controlled.name,\n 'distance_to_Grover':float(np.linalg.norm(actual-G)),\n 'distance_to_negative_Grover':float(np.linalg.norm(actual+G)),\n 'distance_to_negative_diffusion':float(np.linalg.norm(actual+D)),\n 'same_Grover_up_to_global_phase':bool(np.isclose(abs(np.trace(actual.conj().T@G)),4))}\n",
+      "ran": true,
+      "error": null,
+      "observations": {
+        "controlled_gate": "cGrover00",
+        "distance_to_Grover": 2.8284271247461894,
+        "distance_to_negative_Grover": 2.8284271247461894,
+        "distance_to_negative_diffusion": 3.1622776601683786,
+        "same_Grover_up_to_global_phase": false
+      }
+    },
+    {
+      "arm": "shared_r1",
+      "key": "qiskit_26",
+      "officially_accepted": false,
+      "artifact_probe_sha256": "99376022b534787f24202aa414214401b373c2fc5687e032de63ece478dcd959",
+      "probe": "\nqc=GHZ3_SWAPTEST()\ndiagnostic_result={'qubits':qc.num_qubits,'classical_bits':qc.num_clbits,\n 'operations':dict(qc.count_ops()),'registers':[(r.name,r.size) for r in qc.qregs]}\n",
+      "ran": true,
+      "error": null,
+      "observations": {
+        "qubits": 9,
+        "classical_bits": 3,
+        "operations": {
+          "h": 10,
+          "cswap": 6,
+          "measure": 3,
+          "cx": 2
+        },
+        "registers": [
+          [
+            "ghz",
+            3
+          ],
+          [
+            "plus",
+            3
+          ],
+          [
+            "ancilla",
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "arm": "masked_r1",
+      "key": "qiskit_25",
+      "officially_accepted": true,
+      "artifact_probe_sha256": "aad044eda82ce8c633c16b7978a30f3835903e90e7676d23447cb78e3fe8dffa",
+      "probe": "\nimport numpy as np\nfrom qiskit.quantum_info import Operator\nqc=qpe_grover00_gate(3)\ncontrolled=next(x.operation for x in qc.data if hasattr(x.operation,'base_gate') and x.operation.num_qubits==3)\nactual=Operator(controlled.base_gate).data\ns=np.ones(4)/2\nD=2*np.outer(s,s)-np.eye(4)\nO=np.diag([-1,1,1,1])\nG=D@O\ndiagnostic_result={'controlled_gate':controlled.name,\n 'distance_to_Grover':float(np.linalg.norm(actual-G)),\n 'distance_to_negative_Grover':float(np.linalg.norm(actual+G)),\n 'distance_to_negative_diffusion':float(np.linalg.norm(actual+D)),\n 'same_Grover_up_to_global_phase':bool(np.isclose(abs(np.trace(actual.conj().T@G)),4))}\n",
+      "ran": true,
+      "error": null,
+      "observations": {
+        "controlled_gate": "cGrover00",
+        "distance_to_Grover": 2.8284271247461894,
+        "distance_to_negative_Grover": 2.8284271247461894,
+        "distance_to_negative_diffusion": 3.1622776601683786,
+        "same_Grover_up_to_global_phase": false
+      }
+    },
+    {
+      "arm": "masked_r1",
+      "key": "qiskit_26",
+      "officially_accepted": false,
+      "artifact_probe_sha256": "ffb92ef157c0828435cb2082f05852694b94a17e050a6c9807d67b663e612ac2",
+      "probe": "\nqc=GHZ3_SWAPTEST()\ndiagnostic_result={'qubits':qc.num_qubits,'classical_bits':qc.num_clbits,\n 'operations':dict(qc.count_ops()),'registers':[(r.name,r.size) for r in qc.qregs]}\n",
+      "ran": true,
+      "error": null,
+      "observations": {
+        "qubits": 9,
+        "classical_bits": 3,
+        "operations": {
+          "h": 10,
+          "cswap": 6,
+          "measure": 3,
+          "cx": 2
+        },
+        "registers": [
+          [
+            "ghz",
+            3
+          ],
+          [
+            "plus",
+            3
+          ],
+          [
+            "ancilla",
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "arm": "shared_r2",
+      "key": "qiskit_25",
+      "officially_accepted": true,
+      "artifact_probe_sha256": "0ddb5f3864b0290e19ccaa79d9921675a71aae3731995670ae63415e235cfefc",
+      "probe": "\nimport numpy as np\nfrom qiskit.quantum_info import Operator\nqc=qpe_grover00_gate(3)\ncontrolled=next(x.operation for x in qc.data if hasattr(x.operation,'base_gate') and x.operation.num_qubits==3)\nactual=Operator(controlled.base_gate).data\ns=np.ones(4)/2\nD=2*np.outer(s,s)-np.eye(4)\nO=np.diag([-1,1,1,1])\nG=D@O\ndiagnostic_result={'controlled_gate':controlled.name,\n 'distance_to_Grover':float(np.linalg.norm(actual-G)),\n 'distance_to_negative_Grover':float(np.linalg.norm(actual+G)),\n 'distance_to_negative_diffusion':float(np.linalg.norm(actual+D)),\n 'same_Grover_up_to_global_phase':bool(np.isclose(abs(np.trace(actual.conj().T@G)),4))}\n",
+      "ran": true,
+      "error": null,
+      "observations": {
+        "controlled_gate": "cGrover00",
+        "distance_to_Grover": 2.8284271247461894,
+        "distance_to_negative_Grover": 2.8284271247461894,
+        "distance_to_negative_diffusion": 3.1622776601683786,
+        "same_Grover_up_to_global_phase": false
+      }
+    },
+    {
+      "arm": "shared_r2",
+      "key": "qiskit_26",
+      "officially_accepted": true,
+      "artifact_probe_sha256": "44236f6cc202896a02ac7159c87ab5e7e481123e3846ff49c5e46f4f351c4157",
+      "probe": "\nqc=GHZ3_SWAPTEST()\ndiagnostic_result={'qubits':qc.num_qubits,'classical_bits':qc.num_clbits,\n 'operations':dict(qc.count_ops()),'registers':[(r.name,r.size) for r in qc.qregs]}\n",
+      "ran": true,
+      "error": null,
+      "observations": {
+        "qubits": 9,
+        "classical_bits": 3,
+        "operations": {
+          "h": 18,
+          "reset": 12,
+          "cx": 6,
+          "cswap": 3,
+          "measure": 3
+        },
+        "registers": [
+          [
+            "ghz",
+            3
+          ],
+          [
+            "plus",
+            3
+          ],
+          [
+            "ancilla",
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "arm": "masked_r2",
+      "key": "qiskit_25",
+      "officially_accepted": true,
+      "artifact_probe_sha256": "e39f1ec60fe7e7ccda8e5dd0c7fbc8d24422284d2371936e00b4f30444070d9f",
+      "probe": "\nimport numpy as np\nfrom qiskit.quantum_info import Operator\nqc=qpe_grover00_gate(3)\ncontrolled=next(x.operation for x in qc.data if hasattr(x.operation,'base_gate') and x.operation.num_qubits==3)\nactual=Operator(controlled.base_gate).data\ns=np.ones(4)/2\nD=2*np.outer(s,s)-np.eye(4)\nO=np.diag([-1,1,1,1])\nG=D@O\ndiagnostic_result={'controlled_gate':controlled.name,\n 'distance_to_Grover':float(np.linalg.norm(actual-G)),\n 'distance_to_negative_Grover':float(np.linalg.norm(actual+G)),\n 'distance_to_negative_diffusion':float(np.linalg.norm(actual+D)),\n 'same_Grover_up_to_global_phase':bool(np.isclose(abs(np.trace(actual.conj().T@G)),4))}\n",
+      "ran": true,
+      "error": null,
+      "observations": {
+        "controlled_gate": "cGrover00",
+        "distance_to_Grover": 3.4641016151377544,
+        "distance_to_negative_Grover": 2.0,
+        "distance_to_negative_diffusion": 2.449489742783178,
+        "same_Grover_up_to_global_phase": false
+      }
+    },
+    {
+      "arm": "masked_r2",
+      "key": "qiskit_26",
+      "officially_accepted": false,
+      "artifact_probe_sha256": "ebe347e3be612a63762bbb4f23f7fae59540571efa807bcb8792d1e738f2e1fa",
+      "probe": "\nqc=GHZ3_SWAPTEST()\ndiagnostic_result={'qubits':qc.num_qubits,'classical_bits':qc.num_clbits,\n 'operations':dict(qc.count_ops()),'registers':[(r.name,r.size) for r in qc.qregs]}\n",
+      "ran": true,
+      "error": null,
+      "observations": {
+        "qubits": 9,
+        "classical_bits": 3,
+        "operations": {
+          "h": 10,
+          "cswap": 6,
+          "measure": 3,
+          "cx": 2
+        },
+        "registers": [
+          [
+            "ghz",
+            3
+          ],
+          [
+            "plus",
+            3
+          ],
+          [
+            "ancilla",
+            3
+          ]
+        ]
+      }
+    }
+  ]
+}

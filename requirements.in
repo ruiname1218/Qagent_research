@@ -1,0 +1,12 @@
+numpy==1.26.4
+scipy==1.15.3
+qiskit==0.46.0
+qiskit-aer==0.13.3
+qiskit-algorithms==0.3.0
+cirq-core==1.6.1
+pennylane==0.43.1
+pennylane-lightning==0.43.0
+requests
+python-dotenv
+gast==0.7.0
+astunparse==1.6.3

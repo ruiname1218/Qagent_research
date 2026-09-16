@@ -1,0 +1,53 @@
+{
+  "qagent/core.py": {
+    "source": "qagent/core.py",
+    "original_sha256": "2f6c28f765e256216a751f6ed9145b3e01cdac342a1c7af03bdadbd1e9aab679",
+    "release_sha256": "2f6c28f765e256216a751f6ed9145b3e01cdac342a1c7af03bdadbd1e9aab679"
+  },
+  "qagent/worker.py": {
+    "source": "qagent/worker.py",
+    "original_sha256": "bee87fd8b943b7c1970fbaaeedde9665d2c2d4a02540eb2c64971fd07bc9efbf",
+    "release_sha256": "bee87fd8b943b7c1970fbaaeedde9665d2c2d4a02540eb2c64971fd07bc9efbf"
+  },
+  "qagent/__init__.py": {
+    "source": "qagent/__init__.py",
+    "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "release_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "qagent/prompts.py": {
+    "source": "qagent/deliberative.py",
+    "original_sha256": "765f46049696cdeefb4bee606ba5ec614f3987b83475914f51500364e84f8d3b",
+    "release_sha256": "e2fa4e17b793fb66ad01d32e6156ae71b3bdf9a149676874d3159a4e1da9b87b",
+    "additional_source": {
+      "source": "qagent/cross.py",
+      "original_sha256": "992eeaaf5318401c78e22643adb3cdc54f3882453a1ee1ee2b2c927abdd3988c"
+    }
+  },
+  "qagent/memory.py": {
+    "source": "qagent/memory_ablation.py",
+    "original_sha256": "a2b95fd5d35e77dd1f069fd5a86ccb524ba2e80d0dbec15439ac19cbc03cc3df",
+    "release_sha256": "84eac6fd34830f5c2f6c8b6bec7d3908cd36f988d4f787158d7f69209d433e10"
+  },
+  "qagent/restart.py": {
+    "source": "qagent/private_extensions.py",
+    "original_sha256": "12dfe0d0085372c05a4a7179bfa173c29fb3a8f86835ba479bffe63cab5e84e6",
+    "release_sha256": "6a9c0daddf43d5141e2ea670e8132afa54acbe3d7f52bc4854c6ef0fbef3618b"
+  },
+  "qagent/baselines.py": {
+    "source": "qagent/run.py",
+    "original_sha256": "a6f6e87191ffb655dd1fd88c2113d1728b4bc512881026863f9b3a24f6781248",
+    "release_sha256": "5c31615447c0b3523071205fe0c40b73719b4af71c1195f4da19a93694117edc"
+  },
+  "qagent/no_peer_no_restart.py": {
+    "source": "qagent/no_peer_no_restart.py",
+    "original_sha256": "a435143508d8f2531499121ad276a8268a38c1556fd0b33027d01469e23809f5",
+    "release_sha256": "2b6f1f0927a8ef09467506ec350f59535a0b76460779b368076e42947482d395",
+    "release_change": "Adds --with-restart to make fresh no-sharing restart replications runnable."
+  },
+  "results/ablation/no_peer_restart_full_results.json": {
+    "source": "runs/no_peer_none_r1 and runs/no_peer_none_r2",
+    "export_script": "scripts/export_no_peer_restart_evidence.py",
+    "export_script_sha256": "e407b12a9fc2dfd489e52cb39f7814009b9056e81ddf44a3674cf818c9fd7809",
+    "release_sha256": "57e82bef7f337612f3871697f0c4d1dc06525bc834d3904b08c4e59987081d64"
+  }
+}

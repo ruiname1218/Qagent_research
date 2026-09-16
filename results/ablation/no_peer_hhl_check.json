@@ -1,0 +1,67 @@
+{
+  "purpose": "Post-hoc comparison of saved outputs to the normalized solution of the prompt-specified Ax=b; no model calls or circuit executions.",
+  "normalized_solution_probabilities": [
+    0.7902439024390244,
+    0.11951219512195123,
+    0.0024390243902439024,
+    0.08780487804878051
+  ],
+  "limits": "Four-bin comparison uses the recorded [system MSB,system LSB] order. Other output shapes are not compared as distributions over just the solution register. It does not verify the full HHL algorithm.",
+  "checks": [
+    {
+      "arm": "outcomes_r1",
+      "key": "pennylane_10",
+      "officially_accepted": true,
+      "ran": true,
+      "error": null,
+      "output": [
+        0.351,
+        0.52,
+        0.001,
+        0.128
+      ],
+      "output_size": 4,
+      "l1_to_normalized_solution_if_four_bins": 0.8813658536585367
+    },
+    {
+      "arm": "none_r1",
+      "key": "pennylane_10",
+      "officially_accepted": false,
+      "ran": false,
+      "error": "Traceback (most recent call last):\n  File \"/worker.py\", line 33, in main\n    output = {'qiskit': get_probs_qiskit, 'cirq': get_probs_cirq,\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/benchmark/feedback_loop/api.py\", line 188, in get_probs_pennylane\n    circuit_or_counts = get_handler(task_id, solution, entry_point, inputs)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/benchmark/utils/common.py\", line 243, in get_handler\n    return func()\n           ^^^^^^\n  File \"/benchmark/utils/common.py\", line 242, in <lambda>\n    func = handlers.get(x, lambda: execute_code_with_args(code, entry_point))\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/benchmark/utils/common.py\", line 189, in execute_code_with_args\n    result = func(*args)\n             ^^^^^^^^^^^\n  File \"<string>\", line 43, in HHL_4x4\n  File \"/home/rui/Downloads/Qagent_v3/.venv/lib/python3.11/site-packages/pennylane/workflow/qnode.py\", line 895, in __call__\n    return self._impl_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/rui/Downloads/Qagent_v3/.venv/lib/python3.11/site-packages/pennylane/workflow/qnode.py\", line 868, in _impl_call\n    res = execute(\n          ^^^^^^^^\n  File \"/home/rui/Downloads/Qagent_v3/.venv/lib/python3.11/site-packages/pennylane/workflow/execution.py\", line 229, in execute\n    config = _resolve_execution_config(config, device, tapes)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/rui/Downloads/Qagent_v3/.venv/lib/python3.11/site-packages/pennylane/workflow/resolution.py\", line 323, in _resolve_execution_config\n    execution_config = device.setup_execution_config(execution_config, tapes[0])\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/rui/Downloads/Qagent_v3/.venv/lib/python3.11/site-packages/pennylane/logging/decorators.py\", line 61, in wrapper_entry\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/rui/Downloads/Qagent_v3/.venv/lib/python3.11/site-packages/pennylane/devices/default_qubit.py\", line 747, in setup_execution_config\n    mcm_config = self._setup_mcm_config(config.mcm_config, circuit)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/rui/Downloads/Qagent_v3/.venv/lib/python3.11/site-packages/pennylane/devices/default_qubit.py\", line 770, in _setup_mcm_config\n    raise DeviceError(\npennylane.exceptions.DeviceError: Using postselect_mode='fill-shots' is only supported with mcm_method='deferred'.\n",
+      "output": null,
+      "output_size": null,
+      "l1_to_normalized_solution_if_four_bins": null
+    },
+    {
+      "arm": "outcomes_r2",
+      "key": "pennylane_10",
+      "officially_accepted": true,
+      "ran": true,
+      "error": null,
+      "output": [
+        0.351,
+        0.52,
+        0.001,
+        0.128
+      ],
+      "output_size": 4,
+      "l1_to_normalized_solution_if_four_bins": 0.8813658536585367
+    },
+    {
+      "arm": "none_r2",
+      "key": "pennylane_10",
+      "officially_accepted": false,
+      "ran": true,
+      "error": null,
+      "output": [
+        0.773,
+        0.138,
+        0.003,
+        0.086
+      ],
+      "output_size": 4,
+      "l1_to_normalized_solution_if_four_bins": 0.038097560975609804
+    }
+  ]
+}
